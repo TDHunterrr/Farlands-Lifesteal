@@ -39,9 +39,18 @@ public class FarlandsLifestealPlugin extends JavaPlugin {
 
         // Register commands
         PaperCommands commands = new PaperCommands(this);
-        if (getCommand("withdrawheart") != null) getCommand("withdrawheart").setExecutor(commands);
-        if (getCommand("removeheart") != null) getCommand("removeheart").setExecutor(commands);
-        if (getCommand("revive") != null) getCommand("revive").setExecutor(commands);
+        if (getCommand("withdrawheart") != null) {
+            getCommand("withdrawheart").setExecutor(commands);
+            getCommand("withdrawheart").setTabCompleter(commands);
+        }
+        if (getCommand("removeheart") != null) {
+            getCommand("removeheart").setExecutor(commands);
+            getCommand("removeheart").setTabCompleter(commands);
+        }
+        if (getCommand("revive") != null) {
+            getCommand("revive").setExecutor(commands);
+            getCommand("revive").setTabCompleter(commands);
+        }
 
         // Register event listener
         getServer().getPluginManager().registerEvents(new PaperEventListener(this), this);

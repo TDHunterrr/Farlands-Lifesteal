@@ -13,12 +13,16 @@ import org.bukkit.attribute.AttributeInstance;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
+import org.bukkit.command.TabCompleter;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
+import java.util.Collections;
+import java.util.List;
+import java.util.Objects;
 import java.util.Map;
 
-public class PaperCommands implements CommandExecutor {
+public class PaperCommands implements CommandExecutor, TabCompleter {
 
     private final FarlandsLifestealPlugin plugin;
 
@@ -166,5 +170,28 @@ public class PaperCommands implements CommandExecutor {
         }
 
         return false;
+    }
+
+    @Override
+    public List<String> onTabComplete(CommandSender sender, Command command, String alias, String[] args) {
+        String cmd = command.getName().toLowerCase();
+        if (cmd.equals("withdrawheart")) {
+            if (args.length == 1) {
+                return List.of("1", "2", "5", "10");
+            }
+        } else if (cmd.equals("removeheart")) {
+            if (args.length == 1) {
+                return Bukkit.getOnlinePlayers().stream().map(Player::getName).toList();
+            } else if (args.length == 2) {
+                return List.of("1", "2", "5");
+            }
+        } else if (cmd.equals("revive")) {
+            if (args.length == 1) {
+                return Bukkit.getBannedPlayers().stream().map(OfflinePlayer::getName).filter(Objects::nonNull).toList();
+            } else if (args.length == 2) {
+                return List.of("10", "15", "20");
+            }
+        }
+        return Collections.emptyList();
     }
 }
