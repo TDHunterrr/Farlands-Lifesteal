@@ -1,0 +1,19 @@
+{
+	"required": true,
+	"package": "com.farlands.lifesteal.mixin",
+	"compatibilityLevel": "JAVA_25",
+	"mixins": [
+		"CommandsMixin",
+		"MinecraftServerMixin",
+		"PlayerListMixin",
+		"ServerGamePacketListenerMixin",
+		"ServerPlayerEntityMixin",
+		"ServerPlayerGameModeMixin"
+	],
+	"injectors": {
+		"defaultRequire": 1
+	},
+	"overwrites": {
+		"requireAnnotations": true
+	}
+}

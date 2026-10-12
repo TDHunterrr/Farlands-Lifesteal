@@ -1,0 +1,16 @@
+plugins {
+    id 'multiloader-common'
+}
+
+dependencies {
+    compileOnly project(':common')
+}
+
+tasks.named('compileJava', JavaCompile) {
+    source(project(':common').sourceSets.main.allSource)
+}
+
+processResources {
+    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+    from project(':common').sourceSets.main.resources
+}

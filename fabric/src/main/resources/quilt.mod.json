@@ -1,0 +1,32 @@
+{
+    "schema_version": 1,
+    "quilt_loader": {
+        "group": "com.farlands.lifesteal",
+        "id": "farlands-lifesteal",
+        "version": "${version}",
+        "metadata": {
+            "name": "Farlands Lifesteal",
+            "description": "A lifesteal mod and server plugin for Fabric, Quilt, NeoForge, Paper, and Folia.",
+            "contributors": {
+                "TD_Hunterrr": "Owner"
+            },
+            "contact": {},
+            "icon": "assets/farlands-lifesteal/icon.png"
+        },
+        "intermediate_mappings": "net.fabricmc:intermediary",
+        "entrypoints": {
+            "init": "com.farlands.lifesteal.FarlandsLifesteal",
+            "client_init": "com.farlands.lifesteal.client.FarlandsLifestealClient"
+        },
+        "depends": [
+            {
+                "id": "quilt_loader",
+                "versions": ">=0.20.0"
+            },
+            {
+                "id": "minecraft",
+                "versions": ">=1.21.11 <26.4.0"
+            }
+        ]
+    }
+}

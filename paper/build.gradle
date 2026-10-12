@@ -1,0 +1,24 @@
+plugins {
+    id 'multiloader-common'
+}
+
+base {
+    archivesName = "farlands-lifesteal-paper"
+}
+
+repositories {
+    maven {
+        name = 'PaperMC'
+        url = 'https://repo.papermc.io/repository/maven-public/'
+    }
+}
+
+dependencies {
+    implementation project(':common')
+    compileOnly "io.papermc.paper:paper-api:${paper_api_version}"
+}
+
+tasks.named('jar', Jar) {
+    archiveClassifier = ''
+    from(project(':common').sourceSets.main.output)
+}

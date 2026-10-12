@@ -1,0 +1,58 @@
+plugins {
+    id 'java'
+    id 'java-library'
+}
+
+group = rootProject.findProperty('group') ?: 'com.farlands.lifesteal'
+version = rootProject.findProperty('version') ?: '1.0.0'
+
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(25)
+    }
+    withSourcesJar()
+}
+
+repositories {
+    mavenCentral()
+    maven {
+        name = 'Fabric'
+        url = 'https://maven.fabricmc.net/'
+    }
+    maven {
+        name = 'NeoForged'
+        url = 'https://maven.neoforged.net/releases'
+    }
+    maven {
+        name = 'PaperMC'
+        url = 'https://repo.papermc.io/repository/maven-public/'
+    }
+}
+
+tasks.withType(JavaCompile).configureEach {
+    options.encoding = 'UTF-8'
+    options.release = 25
+}
+
+processResources {
+    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+    def modGroup = rootProject.findProperty('group') ?: 'com.farlands.lifesteal'
+    def modVersion = rootProject.findProperty('version') ?: '1.0.0'
+    def expandProps = [
+        'version': modVersion.toString(),
+        'group': modGroup.toString(),
+        'minecraft_version': (findProperty('minecraft_version') ?: '1.21.11').toString(),
+        'mod_id': (findProperty('mod_id') ?: 'farlands_lifesteal').toString(),
+        'fabric_mod_id': (findProperty('fabric_mod_id') ?: 'farlands-lifesteal').toString(),
+        'mod_name': (findProperty('mod_name') ?: 'Farlands Lifesteal').toString(),
+        'mod_author': (findProperty('mod_author') ?: 'TD_Hunterrr').toString(),
+        'description': (findProperty('description') ?: 'Farlands Lifesteal').toString(),
+        'license': (findProperty('license') ?: 'CC0-1.0').toString(),
+        'minecraft_version_range': (findProperty('minecraft_version_range') ?: '[1.21, 26.4)').toString(),
+        'fabric_minecraft_range': (findProperty('fabric_minecraft_range') ?: '>=1.21 <=26.4').toString(),
+        'neoforge_loader_version_range': (findProperty('neoforge_loader_version_range') ?: '[21.11,)').toString()
+    ]
+    filesMatching(['fabric.mod.json', 'quilt.mod.json', 'META-INF/neoforge.mods.toml', 'paper-plugin.yml', 'plugin.yml']) {
+        expand expandProps
+    }
+}

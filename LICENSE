@@ -1,0 +1,85 @@
+Farlands Lifesteal End-User License Agreement & Mod License
+Copyright (c) 2026 TD_Hunterrr. All Rights Reserved (ARR).
+
+================================================================================
+1. GRANT OF LICENSE & RESERVATION OF RIGHTS
+================================================================================
+This software and associated documentation files (the "Software"), including
+all source code, compiled binaries, textures, models, sound assets, and
+configuration files for "Farlands Lifesteal", are the intellectual property of
+TD_Hunterrr (the "Author" / "Creator").
+
+Except as expressly authorized in Section 2 (Modpack Permissions), all rights
+not specifically granted herein are strictly reserved by the Creator under an
+All Rights Reserved (ARR) license.
+
+================================================================================
+2. MODPACK PERMISSIONS (PERMITTED USE)
+================================================================================
+Permission is hereby granted, free of charge, to include the unmodified compiled
+binary releases (.jar files) of the Software in Minecraft modpacks (both public
+and private), subject to the following conditions:
+
+a. No Direct Commercial Sale:
+   The modpack may not be sold behind a paywall or monetize the Software
+   directly. Any monetization of the modpack or servers hosting the modpack
+   must strictly comply with Mojang's Commercial Usage Guidelines and Minecraft
+   End User License Agreement (EULA).
+
+b. Attribution:
+   Proper credit must be attributed to "TD_Hunterrr" as the creator of
+   Farlands Lifesteal, accompanied by a link to the official project page
+   (e.g., Modrinth, CurseForge, or official repository) where feasible.
+
+c. Approved Modpack Launchers & Platforms:
+   Distribution of the Software as an integrated component of a curated modpack
+   via established platforms (including, but not limited to, CurseForge,
+   Modrinth, Feed The Beast, ATLauncher, Prism Launcher, Technic) is authorized.
+
+================================================================================
+3. DISTRIBUTION RESTRICTIONS (STANDALONE PROHIBITION)
+================================================================================
+a. Exclusive Standalone Distribution:
+   The Creator (TD_Hunterrr) is the sole and exclusive authorized distributor
+   of standalone releases of the Software.
+
+b. Mirroring & Re-hosting Prohibited:
+   You may NOT redistribute, re-upload, mirror, host, or publish standalone
+   copies of the Software (including the .jar file, individual assets, or source
+   code) on any third-party website, forum, file-hosting service, Discord server,
+   or repository without prior written consent from TD_Hunterrr.
+
+c. Unofficial Repackaging:
+   Extracting the Software to distribute it under a different name, re-branding
+   it, or bundling it into standalone installer wrappers is strictly forbidden.
+
+================================================================================
+4. MODIFICATIONS & DERIVATIVE WORKS
+================================================================================
+a. Personal / Private Modifications:
+   You are permitted to decompile or modify the Software strictly for private,
+   personal, educational, or internal debugging purposes.
+
+b. Public Forks & Derivatives Prohibited:
+   You may NOT publicly distribute modified versions, ports to other loaders or
+   game versions, forks, or derivative works of the Software without explicit,
+   written authorization from TD_Hunterrr.
+
+================================================================================
+5. TERMINATION
+================================================================================
+Any breach of the terms of this License immediately and automatically terminates
+your right to use, distribute, or include the Software in any modpack. Upon
+termination, you must cease all distribution and remove the Software from any
+modpacks under your control upon request from the Creator.
+
+================================================================================
+6. DISCLAIMER OF WARRANTY & LIMITATION OF LIABILITY
+================================================================================
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE, AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+CREATOR (TD_HUNTERRR) BE LIABLE FOR ANY CLAIM, DAMAGES, LOSS OF DATA, WORLD
+CORRUPTION, SERVER DOWNTIME, OR OTHER LIABILITY, WHETHER IN AN ACTION OF
+CONTRACT, TORT, OR OTHERWISE, ARISING FROM, OUT OF, OR IN CONNECTION WITH THE
+SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.

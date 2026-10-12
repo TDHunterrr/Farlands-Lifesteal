@@ -1,0 +1,30 @@
+{
+	"schemaVersion": 1,
+	"id": "farlands-lifesteal",
+	"version": "${version}",
+	"name": "Farlands Lifesteal",
+	"description": "Farlands Lifesteal mod and server plugin for Fabric, Quilt, NeoForge, Paper, and Folia.",
+	"authors": [
+		"TD_Hunterrr"
+	],
+	"contact": {},
+	"license": "ARR",
+	"icon": "assets/farlands-lifesteal/icon.png",
+	"environment": "*",
+	"entrypoints": {
+		"main": [
+			"com.farlands.lifesteal.FarlandsLifesteal"
+		],
+		"client": [
+			"com.farlands.lifesteal.client.FarlandsLifestealClient"
+		]
+	},
+	"mixins": [
+		"farlands-lifesteal.mixins.json"
+	],
+	"depends": {
+		"fabricloader": ">=0.19.5",
+		"minecraft": ">=1.21.11 <26.4.0",
+		"java": ">=25"
+	}
+}

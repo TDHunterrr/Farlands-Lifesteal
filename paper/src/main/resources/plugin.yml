@@ -1,0 +1,29 @@
+name: FarlandsLifesteal
+version: '${version}'
+main: com.farlands.lifesteal.paper.FarlandsLifestealPlugin
+api-version: '1.21'
+folia-supported: true
+description: 'Farlands Lifesteal server plugin for Paper and Folia.'
+authors: [TD_Hunterrr]
+
+commands:
+  withdrawheart:
+    description: Withdraw hearts into heart items.
+    usage: /withdrawheart <amount>
+    permission: farlands.lifesteal.use
+  removeheart:
+    description: Remove hearts from a player.
+    usage: /removeheart <player> <amount>
+    permission: farlands.lifesteal.admin
+  revive:
+    description: Revive a banned dead player.
+    usage: /revive <player> [hearts]
+    permission: farlands.lifesteal.admin
+
+permissions:
+  farlands.lifesteal.use:
+    description: Allows using /withdrawheart and heart items.
+    default: true
+  farlands.lifesteal.admin:
+    description: Allows administrative lifesteal commands.
+    default: op

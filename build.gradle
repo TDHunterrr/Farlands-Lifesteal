@@ -1,0 +1,28 @@
+plugins {
+    id 'base'
+    id 'fabric-loom' version '1.18.4' apply false
+    id 'net.neoforged.moddev' version '2.0.148' apply false
+}
+
+subprojects {
+    group = rootProject.property('group')
+    version = rootProject.property('version')
+}
+
+tasks.register('universalJar', Jar) {
+    group = 'build'
+    description = 'Assembles a universal all-in-one jar compatible with Fabric, Quilt, NeoForge, Paper, and Folia.'
+    archiveBaseName = 'farlands-lifesteal'
+    archiveClassifier = 'universal'
+    destinationDirectory = layout.buildDirectory.dir('libs')
+
+    dependsOn ':fabric:remapJar', ':neoforge:jar', ':paper:jar'
+
+    from({ zipTree(project(':fabric').tasks.named('remapJar').get().archiveFile) })
+    from({ zipTree(project(':neoforge').tasks.named('jar').get().archiveFile) })
+    from({ zipTree(project(':paper').tasks.named('jar').get().archiveFile) })
+
+    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+}
+
+assemble.dependsOn 'universalJar'
