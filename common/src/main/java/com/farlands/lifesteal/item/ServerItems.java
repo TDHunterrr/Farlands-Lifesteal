@@ -20,18 +20,20 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
-@SuppressWarnings("null")
 public class ServerItems {
 
     public static ItemStack createHeart(int amount) {
         ItemStack stack = new ItemStack(Items.PLAYER_HEAD, amount);
 
         stack.set(DataComponents.CUSTOM_NAME,
-                Component.literal("Heart").withStyle(style -> style.withColor(ChatFormatting.RED).withBold(true).withItalic(false)));
+                Component.literal("Heart")
+                        .withStyle(style -> style.withColor(ChatFormatting.RED).withBold(true).withItalic(false)));
 
         List<Component> heartLore = new ArrayList<>();
-        heartLore.add(Component.literal("Right-click to gain 1 heart.").withStyle(Style.EMPTY.withColor(ChatFormatting.RED).withItalic(false)));
-        heartLore.add(Component.literal("The essence of life.").withStyle(Style.EMPTY.withColor(ChatFormatting.GRAY).withItalic(false)));
+        heartLore.add(Component.literal("Right-click to gain 1 heart.")
+                .withStyle(Style.EMPTY.withColor(ChatFormatting.RED).withItalic(false)));
+        heartLore.add(Component.literal("The essence of life.")
+                .withStyle(Style.EMPTY.withColor(ChatFormatting.GRAY).withItalic(false)));
         stack.set(DataComponents.LORE, new ItemLore(heartLore));
 
         CompoundTag tag = new CompoundTag();
@@ -41,7 +43,8 @@ public class ServerItems {
         ImmutableMultimap.Builder<String, Property> builder = ImmutableMultimap.builder();
         builder.put("textures", new Property("textures", LifestealConstants.HEART_TEXTURE_BASE64));
         PropertyMap properties = new PropertyMap(builder.build());
-        GameProfile profile = new GameProfile(LifestealConstants.HEART_SKULL_UUID, LifestealConstants.HEART_SKULL_NAME, properties);
+        GameProfile profile = new GameProfile(LifestealConstants.HEART_SKULL_UUID, LifestealConstants.HEART_SKULL_NAME,
+                properties);
         stack.set(DataComponents.PROFILE, ResolvableProfile.createResolved(profile));
 
         return stack;
@@ -55,7 +58,8 @@ public class ServerItems {
 
         List<Component> tokenLore = new ArrayList<>();
         tokenLore.add(Component.literal("Right-click a block to unban the player.").withStyle(ChatFormatting.RED));
-        tokenLore.add(Component.literal("They will be teleported to the block you look at.").withStyle(ChatFormatting.GRAY));
+        tokenLore.add(
+                Component.literal("They will be teleported to the block you look at.").withStyle(ChatFormatting.GRAY));
         tokenLore.add(Component.literal("Revives player: " + playerName).withStyle(ChatFormatting.AQUA));
         stack.set(DataComponents.LORE, new ItemLore(tokenLore));
 
@@ -71,7 +75,8 @@ public class ServerItems {
     }
 
     public static boolean isHeart(ItemStack stack) {
-        if (!stack.is(Items.PLAYER_HEAD)) return false;
+        if (!stack.is(Items.PLAYER_HEAD))
+            return false;
         if (stack.has(DataComponents.CUSTOM_DATA)) {
             CustomData customData = stack.get(DataComponents.CUSTOM_DATA);
             CompoundTag tag = customData.copyTag();
@@ -86,7 +91,8 @@ public class ServerItems {
     }
 
     public static boolean isReviveToken(ItemStack stack) {
-        if (!stack.is(Items.PLAYER_HEAD)) return false;
+        if (!stack.is(Items.PLAYER_HEAD))
+            return false;
         if (stack.has(DataComponents.CUSTOM_DATA)) {
             CustomData customData = stack.get(DataComponents.CUSTOM_DATA);
             CompoundTag tag = customData.copyTag();
@@ -109,7 +115,8 @@ public class ServerItems {
                 if (uuidTag != null) {
                     try {
                         return UUID.fromString(uuidTag.toString().replace("\"", ""));
-                    } catch (IllegalArgumentException ignored) {}
+                    } catch (IllegalArgumentException ignored) {
+                    }
                 }
             }
         }

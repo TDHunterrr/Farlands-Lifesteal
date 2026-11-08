@@ -25,7 +25,6 @@ import net.minecraft.world.item.ItemStack;
 
 import java.util.Collection;
 
-@SuppressWarnings("null")
 public class LifestealCommands {
 
     public static void registerWithdrawCommand(CommandDispatcher<CommandSourceStack> dispatcher) {
@@ -51,22 +50,24 @@ public class LifestealCommands {
                                         player.drop(hearts, false);
                                     }
 
-                                    context.getSource().sendSuccess(() -> Component.literal("Withdrew " + amount + " heart(s).").withStyle(ChatFormatting.GREEN), false);
+                                    context.getSource()
+                                            .sendSuccess(() -> Component.literal("Withdrew " + amount + " heart(s).")
+                                                    .withStyle(ChatFormatting.GREEN), false);
                                     return 1;
                                 } else {
-                                    context.getSource().sendFailure(Component.literal("You don't have enough hearts to withdraw that many!"));
+                                    context.getSource().sendFailure(
+                                            Component.literal("You don't have enough hearts to withdraw that many!"));
                                     return 0;
                                 }
                             }
                             return 0;
-                        })
-                )
-        );
+                        })));
     }
 
     public static void registerRemoveCommand(CommandDispatcher<CommandSourceStack> dispatcher) {
         dispatcher.register(Commands.literal("removeheart")
-                .requires(source -> source.permissions().hasPermission(net.minecraft.server.permissions.Permissions.COMMANDS_GAMEMASTER))
+                .requires(source -> source.permissions()
+                        .hasPermission(net.minecraft.server.permissions.Permissions.COMMANDS_GAMEMASTER))
                 .then(Commands.argument("player", EntityArgument.player())
                         .then(Commands.argument("amount", IntegerArgumentType.integer(1))
                                 .executes(context -> {
@@ -77,14 +78,19 @@ public class LifestealCommands {
                                     if (maxHealthAttr != null) {
                                         double currentMax = maxHealthAttr.getBaseValue();
                                         double healthToLose = amount * LifestealConstants.HEALTH_PER_HEART;
-                                        double newMax = Math.max(LifestealConstants.MIN_HEALTH, currentMax - healthToLose);
+                                        double newMax = Math.max(LifestealConstants.MIN_HEALTH,
+                                                currentMax - healthToLose);
 
                                         maxHealthAttr.setBaseValue(newMax);
                                         if (target.getHealth() > newMax) {
                                             target.setHealth((float) newMax);
                                         }
 
-                                        context.getSource().sendSuccess(() -> Component.literal("Removed " + amount + " heart(s) from " + target.getName().getString()).withStyle(ChatFormatting.GREEN), true);
+                                        context.getSource()
+                                                .sendSuccess(() -> Component
+                                                        .literal("Removed " + amount + " heart(s) from "
+                                                                + target.getName().getString())
+                                                        .withStyle(ChatFormatting.GREEN), true);
 
                                         if (newMax <= 0.0) {
                                             target.kill((ServerLevel) target.level());
@@ -92,27 +98,25 @@ public class LifestealCommands {
                                         return 1;
                                     }
                                     return 0;
-                                })
-                        )
-                )
-        );
+                                }))));
     }
 
     public static void registerReviveCommand(CommandDispatcher<CommandSourceStack> dispatcher) {
         dispatcher.register(Commands.literal("revive")
-                .requires(source -> source.permissions().hasPermission(net.minecraft.server.permissions.Permissions.COMMANDS_GAMEMASTER))
+                .requires(source -> source.permissions()
+                        .hasPermission(net.minecraft.server.permissions.Permissions.COMMANDS_GAMEMASTER))
                 .then(Commands.argument("player", GameProfileArgument.gameProfile())
                         .executes(context -> revivePlayer(context, LifestealConstants.DEFAULT_HEARTS))
                         .then(Commands.argument("hearts", IntegerArgumentType.integer(1, LifestealConstants.MAX_HEARTS))
-                                .executes(context -> revivePlayer(context, IntegerArgumentType.getInteger(context, "hearts")))
-                        )
-                )
-        );
+                                .executes(context -> revivePlayer(context,
+                                        IntegerArgumentType.getInteger(context, "hearts"))))));
     }
 
-    private static int revivePlayer(CommandContext<CommandSourceStack> context, int hearts) throws CommandSyntaxException {
+    private static int revivePlayer(CommandContext<CommandSourceStack> context, int hearts)
+            throws CommandSyntaxException {
         Collection<NameAndId> profiles = GameProfileArgument.getGameProfiles(context, "player");
-        if (profiles.isEmpty()) return 0;
+        if (profiles.isEmpty())
+            return 0;
 
         NameAndId profile = profiles.iterator().next();
         MinecraftServer server = context.getSource().getServer();
@@ -130,7 +134,9 @@ public class LifestealCommands {
 
         if (found) {
             LifestealState.addPendingHealth(server, profile.id(), hearts * LifestealConstants.HEALTH_PER_HEART);
-            context.getSource().sendSuccess(() -> Component.literal("Revived " + profile.name() + " with " + hearts + " hearts!").withStyle(ChatFormatting.GREEN), true);
+            context.getSource()
+                    .sendSuccess(() -> Component.literal("Revived " + profile.name() + " with " + hearts + " hearts!")
+                            .withStyle(ChatFormatting.GREEN), true);
             return 1;
         } else {
             context.getSource().sendFailure(Component.literal(profile.name() + " is not banned/dead!"));

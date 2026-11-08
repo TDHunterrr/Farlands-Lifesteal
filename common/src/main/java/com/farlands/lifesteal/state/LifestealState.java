@@ -19,7 +19,6 @@ public class LifestealState extends SavedData {
     public final Map<UUID, BlockPos> pendingTeleports = new HashMap<>();
     public final Map<UUID, Double> pendingHealth = new HashMap<>();
 
-    @SuppressWarnings("null")
     public static final Codec<LifestealState> CODEC = RecordCodecBuilder.create(instance -> instance.group(
             Codec.unboundedMap(Codec.STRING, BlockPos.CODEC)
                     .optionalFieldOf("pendingTeleports", new HashMap<>())
@@ -34,15 +33,14 @@ public class LifestealState extends SavedData {
                         Map<String, Double> map = new HashMap<>();
                         state.pendingHealth.forEach((k, v) -> map.put(k.toString(), v));
                         return map;
-                    })
-    ).apply(instance, (teleports, healths) -> {
-        LifestealState state = new LifestealState();
-        teleports.forEach((k, v) -> state.pendingTeleports.put(UUID.fromString(k), v));
-        healths.forEach((k, v) -> state.pendingHealth.put(UUID.fromString(k), v));
-        return state;
-    }));
+                    }))
+            .apply(instance, (teleports, healths) -> {
+                LifestealState state = new LifestealState();
+                teleports.forEach((k, v) -> state.pendingTeleports.put(UUID.fromString(k), v));
+                healths.forEach((k, v) -> state.pendingHealth.put(UUID.fromString(k), v));
+                return state;
+            }));
 
-    @SuppressWarnings("null")
     public static final SavedDataType<LifestealState> TYPE = new SavedDataType<>(
             LifestealConstants.MOD_ID + "_state",
             LifestealState::new,
@@ -85,7 +83,6 @@ public class LifestealState extends SavedData {
         return pendingHealth.containsKey(uuid);
     }
 
-    @SuppressWarnings("null")
     public static LifestealState getServerState(MinecraftServer server) {
         ServerLevel overworld = server.getLevel(Level.OVERWORLD);
         if (overworld == null)

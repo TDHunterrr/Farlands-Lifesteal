@@ -34,6 +34,7 @@ public class PaperCommands implements CommandExecutor, TabCompleter {
         return Attribute.MAX_HEALTH;
     }
 
+    @SuppressWarnings({ "deprecation", "rawtypes" })
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         String cmd = command.getName().toLowerCase();
@@ -52,7 +53,8 @@ public class PaperCommands implements CommandExecutor, TabCompleter {
             int amount;
             try {
                 amount = Integer.parseInt(args[0]);
-                if (amount <= 0) throw new NumberFormatException();
+                if (amount <= 0)
+                    throw new NumberFormatException();
             } catch (NumberFormatException e) {
                 sender.sendMessage(Component.text("Amount must be a positive integer!", NamedTextColor.RED));
                 return true;
@@ -78,7 +80,8 @@ public class PaperCommands implements CommandExecutor, TabCompleter {
                     sender.sendMessage(Component.text("Withdrew " + amount + " heart(s).", NamedTextColor.GREEN));
                     return true;
                 } else {
-                    sender.sendMessage(Component.text("You don't have enough hearts to withdraw that many!", NamedTextColor.RED));
+                    sender.sendMessage(
+                            Component.text("You don't have enough hearts to withdraw that many!", NamedTextColor.RED));
                     return true;
                 }
             }
@@ -87,7 +90,8 @@ public class PaperCommands implements CommandExecutor, TabCompleter {
 
         if (cmd.equals("removeheart")) {
             if (!sender.hasPermission("farlands.lifesteal.admin")) {
-                sender.sendMessage(Component.text("You do not have permission to execute this command.", NamedTextColor.RED));
+                sender.sendMessage(
+                        Component.text("You do not have permission to execute this command.", NamedTextColor.RED));
                 return true;
             }
 
@@ -105,7 +109,8 @@ public class PaperCommands implements CommandExecutor, TabCompleter {
             int amount;
             try {
                 amount = Integer.parseInt(args[1]);
-                if (amount <= 0) throw new NumberFormatException();
+                if (amount <= 0)
+                    throw new NumberFormatException();
             } catch (NumberFormatException e) {
                 sender.sendMessage(Component.text("Amount must be a positive integer!", NamedTextColor.RED));
                 return true;
@@ -122,7 +127,8 @@ public class PaperCommands implements CommandExecutor, TabCompleter {
                     target.setHealth(newMax);
                 }
 
-                sender.sendMessage(Component.text("Removed " + amount + " heart(s) from " + target.getName(), NamedTextColor.GREEN));
+                sender.sendMessage(Component.text("Removed " + amount + " heart(s) from " + target.getName(),
+                        NamedTextColor.GREEN));
 
                 if (newMax <= 0.0) {
                     target.setHealth(0.0);
@@ -134,7 +140,8 @@ public class PaperCommands implements CommandExecutor, TabCompleter {
 
         if (cmd.equals("revive")) {
             if (!sender.hasPermission("farlands.lifesteal.admin")) {
-                sender.sendMessage(Component.text("You do not have permission to execute this command.", NamedTextColor.RED));
+                sender.sendMessage(
+                        Component.text("You do not have permission to execute this command.", NamedTextColor.RED));
                 return true;
             }
 
@@ -149,7 +156,9 @@ public class PaperCommands implements CommandExecutor, TabCompleter {
                 try {
                     hearts = Math.min(LifestealConstants.MAX_HEARTS, Math.max(1, Integer.parseInt(args[1])));
                 } catch (NumberFormatException e) {
-                    sender.sendMessage(Component.text("Hearts must be an integer between 1 and " + LifestealConstants.MAX_HEARTS + "!", NamedTextColor.RED));
+                    sender.sendMessage(Component.text(
+                            "Hearts must be an integer between 1 and " + LifestealConstants.MAX_HEARTS + "!",
+                            NamedTextColor.RED));
                     return true;
                 }
             }
@@ -161,7 +170,8 @@ public class PaperCommands implements CommandExecutor, TabCompleter {
                 OfflinePlayer offlinePlayer = Bukkit.getOfflinePlayer(targetName);
                 plugin.addPendingHealth(offlinePlayer.getUniqueId(), hearts * LifestealConstants.HEALTH_PER_HEART);
 
-                sender.sendMessage(Component.text("Revived " + targetName + " with " + hearts + " hearts!", NamedTextColor.GREEN));
+                sender.sendMessage(
+                        Component.text("Revived " + targetName + " with " + hearts + " hearts!", NamedTextColor.GREEN));
                 return true;
             } else {
                 sender.sendMessage(Component.text(targetName + " is not banned/dead!", NamedTextColor.RED));

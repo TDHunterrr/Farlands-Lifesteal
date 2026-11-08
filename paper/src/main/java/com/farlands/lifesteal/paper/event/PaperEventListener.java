@@ -52,7 +52,8 @@ public class PaperEventListener implements Listener {
 
         AttributeInstance maxHealthAttr = player.getAttribute(getMaxHealthAttribute());
         if (maxHealthAttr != null && (maxHealthAttr.getBaseValue() <= 0.0 || plugin.hasPendingHealth(uuid))) {
-            double targetHealth = plugin.hasPendingHealth(uuid) ? plugin.getPendingHealth(uuid) : LifestealConstants.DEFAULT_HEALTH;
+            double targetHealth = plugin.hasPendingHealth(uuid) ? plugin.getPendingHealth(uuid)
+                    : LifestealConstants.DEFAULT_HEALTH;
             maxHealthAttr.setBaseValue(targetHealth);
             player.setHealth(targetHealth);
 
@@ -68,7 +69,8 @@ public class PaperEventListener implements Listener {
         }
 
         // 10s Resistance V spawn protection during loading terrain
-        player.addPotionEffect(new PotionEffect(PotionEffectType.RESISTANCE, LifestealConstants.SPAWN_PROTECTION_TICKS, LifestealConstants.SPAWN_PROTECTION_AMPLIFIER, false, false, true));
+        player.addPotionEffect(new PotionEffect(PotionEffectType.RESISTANCE, LifestealConstants.SPAWN_PROTECTION_TICKS,
+                LifestealConstants.SPAWN_PROTECTION_AMPLIFIER, false, false, true));
         spawnProtectionPositions.put(uuid, player.getLocation());
 
         plugin.runTaskLater(player, () -> {
@@ -95,35 +97,42 @@ public class PaperEventListener implements Listener {
         }
     }
 
+    @SuppressWarnings({ "deprecation", "rawtypes" })
     @EventHandler(priority = EventPriority.HIGH)
     public void onPlayerInteract(PlayerInteractEvent event) {
-        if (event.getHand() != EquipmentSlot.HAND) return;
+        if (event.getHand() != EquipmentSlot.HAND)
+            return;
         Player player = event.getPlayer();
         ItemStack item = event.getItem();
-        if (item == null) return;
+        if (item == null)
+            return;
 
         // Using Heart
-        if (PaperItems.isHeart(plugin, item) && (event.getAction() == Action.RIGHT_CLICK_AIR || event.getAction() == Action.RIGHT_CLICK_BLOCK)) {
+        if (PaperItems.isHeart(plugin, item)
+                && (event.getAction() == Action.RIGHT_CLICK_AIR || event.getAction() == Action.RIGHT_CLICK_BLOCK)) {
             event.setCancelled(true);
             AttributeInstance maxHealthAttr = player.getAttribute(getMaxHealthAttribute());
             if (maxHealthAttr != null) {
                 double currentMax = maxHealthAttr.getBaseValue();
                 if (currentMax < LifestealConstants.MAX_HEALTH) {
                     maxHealthAttr.setBaseValue(currentMax + LifestealConstants.HEALTH_PER_HEART);
-                    player.setHealth(Math.min(player.getHealth() + LifestealConstants.HEALTH_PER_HEART, maxHealthAttr.getBaseValue()));
+                    player.setHealth(Math.min(player.getHealth() + LifestealConstants.HEALTH_PER_HEART,
+                            maxHealthAttr.getBaseValue()));
                     if (player.getGameMode() != GameMode.CREATIVE) {
                         item.subtract(1);
                     }
                     player.sendMessage(Component.text("You gained 1 heart!", NamedTextColor.GREEN));
                 } else {
-                    player.sendMessage(Component.text("You already have the maximum amount of hearts!", NamedTextColor.RED));
+                    player.sendMessage(
+                            Component.text("You already have the maximum amount of hearts!", NamedTextColor.RED));
                 }
             }
             return;
         }
 
         // Using Revive Token on block
-        if (PaperItems.isReviveToken(plugin, item) && event.getAction() == Action.RIGHT_CLICK_BLOCK && event.getClickedBlock() != null) {
+        if (PaperItems.isReviveToken(plugin, item) && event.getAction() == Action.RIGHT_CLICK_BLOCK
+                && event.getClickedBlock() != null) {
             event.setCancelled(true);
             UUID targetUuid = PaperItems.getTargetUUID(plugin, item);
             String targetName = PaperItems.getTargetName(plugin, item);
@@ -140,7 +149,8 @@ public class PaperEventListener implements Listener {
                     plugin.addPendingHealth(targetUuid, LifestealConstants.DEFAULT_HEALTH);
 
                     player.sendMessage(Component.text("Unbanned player: " + targetName, NamedTextColor.GREEN));
-                    player.sendMessage(Component.text("They will be teleported to the targeted block upon joining.", NamedTextColor.YELLOW));
+                    player.sendMessage(Component.text("They will be teleported to the targeted block upon joining.",
+                            NamedTextColor.YELLOW));
 
                     if (player.getGameMode() != GameMode.CREATIVE) {
                         item.subtract(1);
@@ -152,11 +162,13 @@ public class PaperEventListener implements Listener {
         }
     }
 
+    @SuppressWarnings("deprecation")
     @EventHandler(priority = EventPriority.HIGHEST)
     public void onPlayerDeath(PlayerDeathEvent event) {
         Player player = event.getEntity();
         AttributeInstance maxHealthAttr = player.getAttribute(getMaxHealthAttribute());
-        if (maxHealthAttr == null) return;
+        if (maxHealthAttr == null)
+            return;
 
         double currentMax = maxHealthAttr.getBaseValue();
         double newMax = currentMax - LifestealConstants.HEALTH_PER_HEART;
@@ -172,10 +184,12 @@ public class PaperEventListener implements Listener {
             Bukkit.getBanList(BanList.Type.NAME).addBan(playerName, "You ran out of hearts!", null, "Lifesteal");
 
             // Drop Revive Token
-            player.getWorld().dropItemNaturally(player.getLocation(), PaperItems.createReviveToken(plugin, playerName, playerUuid));
+            player.getWorld().dropItemNaturally(player.getLocation(),
+                    PaperItems.createReviveToken(plugin, playerName, playerUuid));
 
             // Disconnect player
-            plugin.runTask(player, () -> player.kick(Component.text("You lost all your hearts and have been banned!", NamedTextColor.RED)));
+            plugin.runTask(player, () -> player
+                    .kick(Component.text("You lost all your hearts and have been banned!", NamedTextColor.RED)));
         } else {
             maxHealthAttr.setBaseValue(newMax);
             player.sendMessage(Component.text("You lost a heart!", NamedTextColor.RED));

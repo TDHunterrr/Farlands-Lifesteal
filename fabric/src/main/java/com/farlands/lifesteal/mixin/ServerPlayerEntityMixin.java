@@ -1,6 +1,5 @@
 package com.farlands.lifesteal.mixin;
 
-
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.MinecraftServer;
@@ -22,7 +21,6 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import java.util.Date;
 
 @Mixin(ServerPlayer.class)
-@SuppressWarnings("null")
 public abstract class ServerPlayerEntityMixin {
 
     @Shadow
@@ -62,7 +60,8 @@ public abstract class ServerPlayerEntityMixin {
                                 "You ran out of hearts!");
                         banList.add(entry);
 
-                        ItemStack reviveStack = com.farlands.lifesteal.item.ServerItems.createReviveToken(player.getName().getString(), player.getUUID());
+                        ItemStack reviveStack = com.farlands.lifesteal.item.ServerItems
+                                .createReviveToken(player.getName().getString(), player.getUUID());
                         ItemEntity itemEntity = player.drop(reviveStack, true);
                         if (itemEntity != null) {
                             itemEntity.setPickUpDelay(40);
@@ -70,7 +69,8 @@ public abstract class ServerPlayerEntityMixin {
 
                         if (this.connection != null) {
                             mcServer.execute(() -> {
-                                this.connection.disconnect(Component.literal("You lost all your hearts and have been banned!")
+                                this.connection
+                                        .disconnect(Component.literal("You lost all your hearts and have been banned!")
                                                 .withStyle(ChatFormatting.RED));
                             });
                         }
