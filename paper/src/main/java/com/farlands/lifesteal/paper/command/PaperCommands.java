@@ -182,6 +182,7 @@ public class PaperCommands implements CommandExecutor, TabCompleter {
         return false;
     }
 
+    @SuppressWarnings("null")
     @Override
     public List<String> onTabComplete(CommandSender sender, Command command, String alias, String[] args) {
         String cmd = command.getName().toLowerCase();
