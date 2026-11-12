@@ -7,12 +7,17 @@
 Developed by **TD_Hunterrr**
 
 ---
-
 [![Minecraft](https://img.shields.io/badge/Minecraft-1.21%2B%20%2F%2026.x-brightgreen.svg)]()
 [![Platform](https://img.shields.io/badge/Platform-Fabric%20%7C%20Quilt%20%7C%20NeoForge%20%7C%20Paper%20%7C%20Folia-blue.svg)]()
 [![License](https://img.shields.io/badge/License-ARR%20(Modpack%20Allowed)-red.svg)](LICENSE)
 
 </div>
+
+---
+
+## 💾 Installation
+
+Go to the [Modrinth page](https://modrinth.com/plugin/farlands-lifesteal) of the plugin and install the latest version
 
 ---
 
